@@ -1,0 +1,182 @@
+---
+title: "R Notebook"
+author: "Diana Zhu"
+output: html_notebook
+---
+
+
+```{r mens data, message=FALSE}
+library(tidyverse)
+library(rvest)
+library(XML)
+library(RCurl)
+library(rlist)
+
+# MENS DATA 
+
+# load all urls for each athlete in the men's division
+url_men_1 <- paste0("https://skatingscores.com/q/segment/?show_ranks=on&underline=&season_codes=2022&season_codes=2021&season_codes=2020&season_codes=2019&division_codes=sr&division_codes=jr&event_codes=all&discipline_codes=men&segment_type_codes=all&unit_country_codes=all&unit_name=nathan+chen&sort=score&limit=50&submit=Submit")
+url_men_2 <- paste0("https://skatingscores.com/q/segment/?show_ranks=on&underline=&season_codes=2022&season_codes=2021&season_codes=2020&season_codes=2019&division_codes=sr&division_codes=jr&event_codes=all&discipline_codes=men&segment_type_codes=all&unit_country_codes=all&unit_name=Shoma+Uno&sort=score&limit=50&submit=Submit")
+url_men_3 <- paste0("https://skatingscores.com/q/segment/?show_ranks=on&underline=&season_codes=2022&season_codes=2021&season_codes=2020&season_codes=2019&division_codes=sr&division_codes=jr&event_codes=all&discipline_codes=men&segment_type_codes=all&unit_country_codes=all&unit_name=Yuma+Kagiyama&sort=score&limit=50&submit=Submit")
+url_men_4 <- paste0("https://skatingscores.com/q/segment/?show_ranks=on&underline=&season_codes=2022&season_codes=2021&season_codes=2020&season_codes=2019&division_codes=sr&division_codes=jr&event_codes=all&discipline_codes=men&segment_type_codes=all&unit_country_codes=all&unit_name=Yuzuru+Hanyu&sort=score&limit=50&submit=Submit")
+url_men_5 <- paste0("https://skatingscores.com/q/segment/?show_ranks=on&underline=&season_codes=2022&season_codes=2021&season_codes=2020&season_codes=2019&division_codes=sr&division_codes=jr&event_codes=all&discipline_codes=men&segment_type_codes=all&unit_country_codes=all&unit_name=Camden+Pulkinen&sort=score&limit=50&submit=Submit")
+url_men_6 <- paste0("https://skatingscores.com/q/segment/?show_ranks=on&underline=&season_codes=2022&season_codes=2021&season_codes=2020&season_codes=2019&division_codes=sr&division_codes=jr&event_codes=all&discipline_codes=men&segment_type_codes=all&unit_country_codes=all&unit_name=Vincent+Zhou&sort=score&limit=50&submit=Submit")
+url_men_7 <- paste0("https://skatingscores.com/q/segment/?show_ranks=on&underline=&season_codes=2022&season_codes=2021&season_codes=2020&season_codes=2019&division_codes=sr&division_codes=jr&event_codes=all&discipline_codes=men&segment_type_codes=all&unit_country_codes=all&unit_name=Morisi+Kvitelashvili&sort=score&limit=50&submit=Submit")
+url_men_8 <- paste0("https://skatingscores.com/q/segment/?show_ranks=on&underline=&season_codes=2022&season_codes=2021&season_codes=2020&season_codes=2019&division_codes=sr&division_codes=jr&event_codes=all&discipline_codes=men&segment_type_codes=all&unit_country_codes=all&unit_name=Mikhail+Kolyada&sort=score&limit=50&submit=Submit")
+url_men_9 <- paste0("https://skatingscores.com/q/segment/?show_ranks=on&underline=&season_codes=2022&season_codes=2021&season_codes=2020&season_codes=2019&division_codes=sr&division_codes=jr&event_codes=all&discipline_codes=men&segment_type_codes=all&unit_country_codes=all&unit_name=Keegan+Messing&sort=score&limit=50&submit=Submit")
+url_men_10 <- paste0("https://skatingscores.com/q/segment/?show_ranks=on&underline=&season_codes=2022&season_codes=2021&season_codes=2020&season_codes=2019&division_codes=sr&division_codes=jr&event_codes=all&discipline_codes=men&segment_type_codes=all&unit_country_codes=all&unit_name=adam+siao+him+fa&sort=score&limit=50&submit=Submit")
+url_men_11 <- paste0("https://skatingscores.com/q/segment/?show_ranks=on&underline=&season_codes=2022&season_codes=2021&season_codes=2020&season_codes=2019&division_codes=sr&division_codes=jr&event_codes=all&discipline_codes=men&segment_type_codes=all&unit_country_codes=all&unit_name=evgeni+semenenko&sort=score&limit=50&submit=Submit")
+url_men_12 <- paste0("https://skatingscores.com/q/segment/?show_ranks=on&underline=&season_codes=2022&season_codes=2021&season_codes=2020&season_codes=2019&division_codes=sr&division_codes=jr&event_codes=all&discipline_codes=men&segment_type_codes=all&unit_country_codes=all&unit_name=jason+brown&sort=score&limit=50&submit=Submit")
+url_men_13 <- paste0("https://skatingscores.com/q/segment/?show_ranks=on&underline=&season_codes=2022&season_codes=2021&season_codes=2020&season_codes=2019&division_codes=sr&division_codes=jr&event_codes=all&discipline_codes=men&segment_type_codes=all&unit_country_codes=all&unit_name=daniel+grassl&sort=score&limit=50&submit=Submit")
+url_men_14 <- paste0("https://skatingscores.com/q/segment/?show_ranks=on&underline=&season_codes=2022&season_codes=2021&season_codes=2020&season_codes=2019&division_codes=sr&division_codes=jr&event_codes=all&discipline_codes=men&segment_type_codes=all&unit_country_codes=all&unit_name=kazuki+tomono&sort=score&limit=50&submit=Submit")
+url_men_15 <- paste0("https://skatingscores.com/q/segment/?show_ranks=on&underline=&season_codes=2022&season_codes=2021&season_codes=2020&season_codes=2019&division_codes=sr&division_codes=jr&event_codes=all&discipline_codes=men&segment_type_codes=all&unit_country_codes=all&unit_name=kevin+aymoz&sort=score&limit=50&submit=Submit")
+
+# how to make this a for loop? 
+# for (i in 1:15) {
+#   tab_men <- read_html(url_men_1) %>% html_nodes("table")
+#   men_1 <- tab_men_1[[2]] %>% html_table(fill = TRUE)
+# 
+# }
+
+# extract only the tables from the HTML 
+tab_men_1 <- read_html(url_men_1) %>% html_nodes("table")
+tab_men_2 <- read_html(url_men_2) %>% html_nodes("table")
+tab_men_3 <- read_html(url_men_3) %>% html_nodes("table")
+tab_men_4 <- read_html(url_men_4) %>% html_nodes("table")
+tab_men_5 <- read_html(url_men_5) %>% html_nodes("table")
+tab_men_6 <- read_html(url_men_6) %>% html_nodes("table")
+tab_men_7 <- read_html(url_men_7) %>% html_nodes("table")
+tab_men_8 <- read_html(url_men_8) %>% html_nodes("table")
+tab_men_9 <- read_html(url_men_9) %>% html_nodes("table")
+tab_men_10 <- read_html(url_men_10) %>% html_nodes("table")
+tab_men_11 <- read_html(url_men_11) %>% html_nodes("table")
+tab_men_12 <- read_html(url_men_12) %>% html_nodes("table")
+tab_men_13 <- read_html(url_men_13) %>% html_nodes("table")
+tab_men_14 <- read_html(url_men_14) %>% html_nodes("table")
+tab_men_15 <- read_html(url_men_15) %>% html_nodes("table")
+
+# isolate the table with the relevant data
+men_1 <- tab_men_1[[2]] %>% html_table(fill = TRUE)
+men_2 <- tab_men_2[[2]] %>% html_table(fill = TRUE)
+men_3 <- tab_men_3[[2]] %>% html_table(fill = TRUE)
+men_4 <- tab_men_4[[2]] %>% html_table(fill = TRUE)
+men_5 <- tab_men_5[[2]] %>% html_table(fill = TRUE)
+men_6 <- tab_men_6[[2]] %>% html_table(fill = TRUE)
+men_7 <- tab_men_7[[2]] %>% html_table(fill = TRUE)
+men_8 <- tab_men_8[[2]] %>% html_table(fill = TRUE)
+men_9 <- tab_men_9[[2]] %>% html_table(fill = TRUE)
+men_10 <- tab_men_10[[2]] %>% html_table(fill = TRUE)
+men_11 <- tab_men_11[[2]] %>% html_table(fill = TRUE)
+men_12 <- tab_men_12[[2]] %>% html_table(fill = TRUE)
+men_13 <- tab_men_13[[2]] %>% html_table(fill = TRUE)
+men_14 <- tab_men_14[[2]] %>% html_table(fill = TRUE)
+men_15 <- tab_men_15[[2]] %>% html_table(fill = TRUE)
+```
+
+```{r women data, message=FALSE}
+# WOMEN'S DATA 
+# load all urls for each athlete in the men's division
+url_women_1 <- paste0("https://skatingscores.com/q/segment/?show_ranks=on&underline=&season_codes=2022&season_codes=2021&season_codes=2020&season_codes=2019&division_codes=sr&division_codes=jr&event_codes=all&discipline_codes=women&segment_type_codes=all&unit_country_codes=all&unit_name=kaori+sakamoto&sort=score&limit=50&submit=Submit")
+url_women_2 <- paste0("https://skatingscores.com/q/segment/?show_ranks=on&underline=&season_codes=2022&season_codes=2021&season_codes=2020&season_codes=2019&division_codes=sr&division_codes=jr&event_codes=all&discipline_codes=women&segment_type_codes=all&unit_country_codes=all&unit_name=alexandra+trusova&sort=score&limit=50&submit=Submit")
+url_women_3 <- paste0("https://skatingscores.com/q/segment/?show_ranks=on&underline=&season_codes=2022&season_codes=2021&season_codes=2020&season_codes=2019&division_codes=sr&division_codes=jr&event_codes=all&discipline_codes=women&segment_type_codes=all&unit_country_codes=all&unit_name=anna+shcherbakova&sort=score&limit=50&submit=Submit")
+url_women_4 <- paste0("https://skatingscores.com/q/segment/?show_ranks=on&underline=&season_codes=2022&season_codes=2021&season_codes=2020&season_codes=2019&division_codes=sr&division_codes=jr&event_codes=all&discipline_codes=women&segment_type_codes=all&unit_country_codes=all&unit_name=loena+hendrickx&sort=score&limit=50&submit=Submit")
+url_women_5 <- paste0("https://skatingscores.com/q/segment/?show_ranks=on&underline=&season_codes=2022&season_codes=2021&season_codes=2020&season_codes=2019&division_codes=sr&division_codes=jr&event_codes=all&discipline_codes=women&segment_type_codes=all&unit_country_codes=all&unit_name=elizaveta+tuktamysheva&sort=score&limit=50&submit=Submit")
+url_women_6 <- paste0("https://skatingscores.com/q/segment/?show_ranks=on&underline=&season_codes=2022&season_codes=2021&season_codes=2020&season_codes=2019&division_codes=sr&division_codes=jr&event_codes=all&discipline_codes=women&segment_type_codes=all&unit_country_codes=all&unit_name=alysa+liu&sort=score&limit=50&submit=Submit")
+url_women_7 <- paste0("https://skatingscores.com/q/segment/?show_ranks=on&underline=&season_codes=2022&season_codes=2021&season_codes=2020&season_codes=2019&division_codes=sr&division_codes=jr&event_codes=all&discipline_codes=women&segment_type_codes=all&unit_country_codes=all&unit_name=mariah+bell&sort=score&limit=50&submit=Submit")
+url_women_8 <- paste0("https://skatingscores.com/q/segment/?show_ranks=on&underline=&season_codes=2022&season_codes=2021&season_codes=2020&season_codes=2019&division_codes=sr&division_codes=jr&event_codes=all&discipline_codes=women&segment_type_codes=all&unit_country_codes=all&unit_name=karen+chen&sort=score&limit=50&submit=Submit")
+url_women_9 <- paste0("https://skatingscores.com/q/segment/?show_ranks=on&underline=&season_codes=2022&season_codes=2021&season_codes=2020&season_codes=2019&division_codes=sr&division_codes=jr&event_codes=all&discipline_codes=women&segment_type_codes=all&unit_country_codes=all&unit_name=anastasiia+gubanova&sort=score&limit=50&submit=Submit")
+url_women_10 <- paste0("https://skatingscores.com/q/segment/?show_ranks=on&underline=&season_codes=2022&season_codes=2021&season_codes=2020&season_codes=2019&division_codes=sr&division_codes=jr&event_codes=all&discipline_codes=women&segment_type_codes=all&unit_country_codes=all&unit_name=young+you&sort=score&limit=50&submit=Submit")
+url_women_11 <- paste0("https://skatingscores.com/q/segment/?show_ranks=on&underline=&season_codes=2022&season_codes=2021&season_codes=2020&season_codes=2019&division_codes=sr&division_codes=jr&event_codes=all&discipline_codes=women&segment_type_codes=all&unit_country_codes=all&unit_name=haein+lee&sort=score&limit=50&submit=Submit")
+url_women_12 <- paste0("https://skatingscores.com/q/segment/?show_ranks=on&underline=&season_codes=2022&season_codes=2021&season_codes=2020&season_codes=2019&division_codes=sr&division_codes=jr&event_codes=all&discipline_codes=women&segment_type_codes=all&unit_country_codes=all&unit_name=olga+mikutina&sort=score&limit=50&submit=Submit")
+url_women_13 <- paste0("https://skatingscores.com/q/segment/?show_ranks=on&underline=&season_codes=2022&season_codes=2021&season_codes=2020&season_codes=2019&division_codes=sr&division_codes=jr&event_codes=all&discipline_codes=women&segment_type_codes=all&unit_country_codes=all&unit_name=bradie+tennell&sort=score&limit=50&submit=Submit")
+url_women_14 <- paste0("https://skatingscores.com/q/segment/?show_ranks=on&underline=&season_codes=2022&season_codes=2021&season_codes=2020&season_codes=2019&division_codes=sr&division_codes=jr&event_codes=all&discipline_codes=women&segment_type_codes=all&unit_country_codes=all&unit_name=rika+kihira&sort=score&limit=50&submit=Submit")
+url_women_15 <- paste0("https://skatingscores.com/q/segment/?show_ranks=on&underline=&season_codes=2022&season_codes=2021&season_codes=2020&season_codes=2019&division_codes=sr&division_codes=jr&event_codes=all&discipline_codes=women&segment_type_codes=all&unit_country_codes=all&unit_name=ekaterina+ryabova&sort=score&limit=50&submit=Submit")
+
+# extract only the tables from the HTML 
+tab_women_1 <- read_html(url_women_1) %>% html_nodes("table")
+tab_women_2 <- read_html(url_women_2) %>% html_nodes("table")
+tab_women_3 <- read_html(url_women_3) %>% html_nodes("table")
+tab_women_4 <- read_html(url_women_4) %>% html_nodes("table")
+tab_women_5 <- read_html(url_women_5) %>% html_nodes("table")
+tab_women_6 <- read_html(url_women_6) %>% html_nodes("table")
+tab_women_7 <- read_html(url_women_7) %>% html_nodes("table")
+tab_women_8 <- read_html(url_women_8) %>% html_nodes("table")
+tab_women_9 <- read_html(url_women_9) %>% html_nodes("table")
+tab_women_10 <- read_html(url_women_10) %>% html_nodes("table")
+tab_women_11 <- read_html(url_women_11) %>% html_nodes("table")
+tab_women_12 <- read_html(url_women_12) %>% html_nodes("table")
+tab_women_13 <- read_html(url_women_13) %>% html_nodes("table")
+tab_women_14 <- read_html(url_women_14) %>% html_nodes("table")
+tab_women_15 <- read_html(url_women_15) %>% html_nodes("table")
+
+# isolate the table with the relevant data
+women_1 <- tab_women_1[[2]] %>% html_table(fill = TRUE)
+women_2 <- tab_women_2[[2]] %>% html_table(fill = TRUE)
+women_3 <- tab_women_3[[2]] %>% html_table(fill = TRUE)
+women_4 <- tab_women_4[[2]] %>% html_table(fill = TRUE)
+women_5 <- tab_women_5[[2]] %>% html_table(fill = TRUE)
+women_6 <- tab_women_6[[2]] %>% html_table(fill = TRUE)
+women_7 <- tab_women_7[[2]] %>% html_table(fill = TRUE)
+women_8 <- tab_women_8[[2]] %>% html_table(fill = TRUE)
+women_9 <- tab_women_9[[2]] %>% html_table(fill = TRUE)
+women_10 <- tab_women_10[[2]] %>% html_table(fill = TRUE)
+women_11 <- tab_women_11[[2]] %>% html_table(fill = TRUE)
+women_12 <- tab_women_12[[2]] %>% html_table(fill = TRUE)
+women_13 <- tab_women_13[[2]] %>% html_table(fill = TRUE)
+women_14 <- tab_women_14[[2]] %>% html_table(fill = TRUE)
+women_15 <- tab_women_15[[2]] %>% html_table(fill = TRUE)
+```
+
+```{r cleaning, message=FALSE}
+# bind each of the skaters into one big data frame
+all_men <- rbind(men_1, men_2, men_3, men_4, men_5, men_6, men_7, 
+                    men_8, men_9, men_10, men_11, men_12, men_13, men_14, men_15)
+
+all_women <- rbind(women_1, women_2, women_3, women_4, women_5, women_6, women_7, 
+                    women_8, women_9, women_10, women_11, women_12, women_13, 
+                   women_14, women_15)
+
+# change season to a numerical year
+for (row in 1:nrow(all_women)) {
+  if (all_women[["Season"]][[row]] == "21/22") {
+    all_women[["Season"]][[row]] = 2022
+  } else if (all_women[["Season"]][[row]] == "20/21") {
+    all_women[["Season"]][[row]] = 2021
+  } else if (all_women[["Season"]][[row]] == "19/20") {
+    all_women[["Season"]][[row]] = 2020
+  } else if (all_women[["Season"]][[row]] == "18/19"){
+    all_women[["Season"]][[row]] = 2019
+  } else {
+    all_women[["Season"]][[row]] = all_women[["Season"]][[row]] 
+  }
+}
+
+# change season to a numerical year
+for (row in 1:nrow(all_men)) {
+  if (all_men[["Season"]][[row]] == "21/22") {
+    all_men[["Season"]][[row]] = as.numeric(2022)
+  } else if (all_men[["Season"]][[row]] == "20/21") {
+    all_men[["Season"]][[row]] = 2021
+  } else if (all_men[["Season"]][[row]] == "19/20") {
+    all_men[["Season"]][[row]] = 2020
+  } else if (all_men[["Season"]][[row]] == "18/19"){
+    all_men[["Season"]][[row]] = 2019
+  } else {
+    all_men[["Season"]][[row]] = all_men[["Season"]][[row]] 
+  }
+}
+
+all_men$Season <- as.numeric(all_men$Season)
+all_women$Season <- as.numeric(all_women$Season)
+
+# write the datasets to csvs
+write.csv(all_men, 'presentation/data/all_men.csv')
+write.csv(all_women, 'presentation/data/all_women.csv')
+```
+
+```{r EDA}
+library(ggplot2)
+all_men <- read.csv('presentation/data/all_men.csv')
+ggplot(data = all_men, mapping = aes(x = Season, y = TotalScore, color = Skater)) + geom_point()
+```
+
