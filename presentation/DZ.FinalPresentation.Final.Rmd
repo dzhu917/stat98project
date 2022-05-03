@@ -100,10 +100,26 @@ knitr::include_graphics("images/scores_boxplot.png")
 
 ### Judging Bias
 - Use Spearman's Rank Correlation to assess how judges' rankings line up with the final skater rankings
-- Hypothesis testing for a difference in scores given to skaters of their own country vs foreign skaters
+- Bayesian generalized linear model (stan_glm): $y = f(\beta_0+\beta_1*\text{home})$
 
 ---
 # Results
+
+
+---
+# Home Country Advantage
+.pull-left[
+![](images/mens_home.png)
+![](images/womens_home.png)
+Confidence interval does not contain 0
+]
+
+
+.pull-right[
+![](images/pairs_home.png)
+![](images/dance_home.png)
+Confidence interval contains 0
+]
 
 ---
 # Discussion
