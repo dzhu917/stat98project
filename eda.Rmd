@@ -127,6 +127,116 @@ women_14 <- tab_women_14[[2]] %>% html_table(fill = TRUE)
 women_15 <- tab_women_15[[2]] %>% html_table(fill = TRUE)
 ```
 
+```{r pair data, message=FALSE}
+# PAIR'S DATA 
+# load all urls for each athlete in the pair's division
+url_pair_1 <- paste0("https://skatingscores.com/q/segment/?show_ranks=on&underline=&season_codes=2022&season_codes=2021&season_codes=2020&season_codes=2019&division_codes=sr&division_codes=jr&event_codes=intl&discipline_codes=pairs&segment_type_codes=all&unit_country_codes=all&unit_name=mishina&sort=score&limit=50&submit=Submit")
+url_pair_2 <- paste0("https://skatingscores.com/q/segment/?show_ranks=on&underline=&season_codes=2022&season_codes=2021&season_codes=2020&season_codes=2019&division_codes=sr&division_codes=jr&event_codes=intl&discipline_codes=pairs&segment_type_codes=all&unit_country_codes=all&unit_name=cong+han&sort=score&limit=50&submit=Submit")
+url_pair_3 <- paste0("https://skatingscores.com/q/segment/?show_ranks=on&underline=&season_codes=2022&season_codes=2021&division_codes=sr&division_codes=jr&event_codes=intl&discipline_codes=pairs&segment_type_codes=all&unit_country_codes=all&unit_name=brandon+frazier&sort=score&limit=50&submit=Submit")
+url_pair_4 <- paste0("https://skatingscores.com/q/segment/?show_ranks=on&underline=&season_codes=2022&season_codes=2021&season_codes=2020&season_codes=2019&division_codes=sr&division_codes=jr&event_codes=intl&discipline_codes=pairs&segment_type_codes=all&unit_country_codes=all&unit_name=tarasova&sort=score&limit=50&submit=Submit")
+url_pair_5 <- paste0("https://skatingscores.com/q/segment/?show_ranks=on&underline=&season_codes=2022&season_codes=2021&season_codes=2020&season_codes=2019&division_codes=sr&division_codes=jr&event_codes=intl&discipline_codes=pairs&segment_type_codes=all&unit_country_codes=all&unit_name=boikova&sort=score&limit=50&submit=Submit")
+url_pair_6 <- paste0("https://skatingscores.com/q/segment/?show_ranks=on&underline=&season_codes=2022&season_codes=2021&season_codes=2020&season_codes=2019&division_codes=sr&division_codes=jr&event_codes=intl&discipline_codes=pairs&segment_type_codes=all&unit_country_codes=all&unit_name=marinaro&sort=score&limit=50&submit=Submit")
+url_pair_7 <- paste0("https://skatingscores.com/q/segment/?show_ranks=on&underline=&season_codes=2022&division_codes=sr&division_codes=jr&event_codes=intl&discipline_codes=pairs&segment_type_codes=all&unit_country_codes=all&unit_name=james&sort=score&limit=50&submit=Submit")
+url_pair_8 <- paste0("https://skatingscores.com/q/segment/?show_ranks=on&underline=&season_codes=2022&season_codes=2021&season_codes=2020&season_codes=2019&division_codes=sr&division_codes=jr&event_codes=intl&discipline_codes=pairs&segment_type_codes=all&unit_country_codes=all&unit_name=peng&sort=score&limit=50&submit=Submit")
+url_pair_9 <- paste0("https://skatingscores.com/q/segment/?show_ranks=on&underline=&season_codes=2022&season_codes=2021&season_codes=2020&division_codes=sr&division_codes=jr&event_codes=intl&discipline_codes=pairs&segment_type_codes=all&unit_country_codes=all&unit_name=miura&sort=score&limit=50&submit=Submit")
+url_pair_10 <- paste0("https://skatingscores.com/q/segment/?show_ranks=on&underline=&season_codes=2022&season_codes=2021&season_codes=2020&season_codes=2019&division_codes=sr&division_codes=jr&event_codes=intl&discipline_codes=pairs&segment_type_codes=all&unit_country_codes=all&unit_name=della+monica&sort=score&limit=50&submit=Submit")
+url_pair_11 <- paste0("https://skatingscores.com/q/segment/?show_ranks=on&underline=&season_codes=2022&season_codes=2021&season_codes=2020&division_codes=sr&division_codes=jr&event_codes=intl&discipline_codes=pairs&segment_type_codes=all&unit_country_codes=all&unit_name=safina&sort=score&limit=50&submit=Submit")
+url_pair_12 <- paste0("https://skatingscores.com/q/segment/?show_ranks=on&underline=&season_codes=2022&season_codes=2021&season_codes=2020&season_codes=2019&division_codes=sr&division_codes=jr&event_codes=intl&discipline_codes=pairs&segment_type_codes=all&unit_country_codes=all&unit_name=seegert&sort=score&limit=50&submit=Submit")
+url_pair_13 <- paste0("https://skatingscores.com/q/segment/?show_ranks=on&underline=&season_codes=2022&season_codes=2021&season_codes=2020&season_codes=2019&division_codes=sr&division_codes=jr&event_codes=intl&discipline_codes=pairs&segment_type_codes=all&unit_country_codes=all&unit_name=cain&sort=score&limit=50&submit=Submit")
+url_pair_14 <- paste0("https://skatingscores.com/q/segment/?show_ranks=on&underline=&season_codes=2022&season_codes=2021&season_codes=2020&season_codes=2019&division_codes=sr&division_codes=jr&event_codes=intl&discipline_codes=pairs&segment_type_codes=all&unit_country_codes=all&unit_name=ziegler&sort=score&limit=50&submit=Submit")
+url_pair_15 <- paste0("https://skatingscores.com/q/segment/?show_ranks=on&underline=&season_codes=2022&season_codes=2021&season_codes=2020&season_codes=2019&division_codes=sr&division_codes=jr&event_codes=intl&discipline_codes=pairs&segment_type_codes=all&unit_country_codes=all&unit_name=walsh&sort=score&limit=50&submit=Submit")
+
+# extract only the tables from the HTML 
+tab_pair_1 <- read_html(url_pair_1) %>% html_nodes("table")
+tab_pair_2 <- read_html(url_pair_2) %>% html_nodes("table")
+tab_pair_3 <- read_html(url_pair_3) %>% html_nodes("table")
+tab_pair_4 <- read_html(url_pair_4) %>% html_nodes("table")
+tab_pair_5 <- read_html(url_pair_5) %>% html_nodes("table")
+tab_pair_6 <- read_html(url_pair_6) %>% html_nodes("table")
+tab_pair_7 <- read_html(url_pair_7) %>% html_nodes("table")
+tab_pair_8 <- read_html(url_pair_8) %>% html_nodes("table")
+tab_pair_9 <- read_html(url_pair_9) %>% html_nodes("table")
+tab_pair_10 <- read_html(url_pair_10) %>% html_nodes("table")
+tab_pair_11 <- read_html(url_pair_11) %>% html_nodes("table")
+tab_pair_12 <- read_html(url_pair_12) %>% html_nodes("table")
+tab_pair_13 <- read_html(url_pair_13) %>% html_nodes("table")
+tab_pair_14 <- read_html(url_pair_14) %>% html_nodes("table")
+tab_pair_15 <- read_html(url_pair_15) %>% html_nodes("table")
+
+# isolate the table with the relevant data
+pair_1 <- tab_pair_1[[2]] %>% html_table(fill = TRUE)
+pair_2 <- tab_pair_2[[2]] %>% html_table(fill = TRUE)
+pair_3 <- tab_pair_3[[2]] %>% html_table(fill = TRUE)
+pair_4 <- tab_pair_4[[2]] %>% html_table(fill = TRUE)
+pair_5 <- tab_pair_5[[2]] %>% html_table(fill = TRUE)
+pair_6 <- tab_pair_6[[2]] %>% html_table(fill = TRUE)
+pair_7 <- tab_pair_7[[2]] %>% html_table(fill = TRUE)
+pair_8 <- tab_pair_8[[2]] %>% html_table(fill = TRUE)
+pair_9 <- tab_pair_9[[2]] %>% html_table(fill = TRUE)
+pair_10 <- tab_pair_10[[2]] %>% html_table(fill = TRUE)
+pair_11 <- tab_pair_11[[2]] %>% html_table(fill = TRUE)
+pair_12 <- tab_pair_12[[2]] %>% html_table(fill = TRUE)
+pair_13 <- tab_pair_13[[2]] %>% html_table(fill = TRUE)
+pair_14 <- tab_pair_14[[2]] %>% html_table(fill = TRUE)
+pair_15 <- tab_pair_15[[2]] %>% html_table(fill = TRUE)
+```
+
+```{r dance, message=FALSE}
+# PAIR'S DATA 
+# load all urls for each athlete in the pair's division
+url_dance_1 <- paste0("https://skatingscores.com/q/segment/?show_ranks=on&underline=&season_codes=2022&season_codes=2021&season_codes=2020&season_codes=2019&division_codes=sr&division_codes=jr&event_codes=intl&discipline_codes=dance&segment_type_codes=all&unit_country_codes=all&unit_name=papadakis&sort=score&limit=50&submit=Submit")
+url_dance_2 <- paste0("https://skatingscores.com/q/segment/?show_ranks=on&underline=&season_codes=2022&season_codes=2021&season_codes=2020&season_codes=2019&division_codes=sr&division_codes=jr&event_codes=intl&discipline_codes=dance&segment_type_codes=all&unit_country_codes=all&unit_name=sinitsina&sort=score&limit=50&submit=Submit")
+url_dance_3 <- paste0("https://skatingscores.com/q/segment/?show_ranks=on&underline=&season_codes=2022&season_codes=2021&season_codes=2020&season_codes=2019&division_codes=sr&division_codes=jr&event_codes=intl&discipline_codes=dance&segment_type_codes=all&unit_country_codes=all&unit_name=hubbell&sort=score&limit=50&submit=Submit")
+url_dance_4 <- paste0("https://skatingscores.com/q/segment/?show_ranks=on&underline=&season_codes=2022&season_codes=2021&season_codes=2020&season_codes=2019&division_codes=sr&division_codes=jr&event_codes=intl&discipline_codes=dance&segment_type_codes=all&unit_country_codes=all&unit_name=gilles&sort=score&limit=50&submit=Submit")
+url_dance_5 <- paste0("https://skatingscores.com/q/segment/?show_ranks=on&underline=&season_codes=2022&season_codes=2021&season_codes=2020&season_codes=2019&division_codes=sr&division_codes=jr&event_codes=intl&discipline_codes=dance&segment_type_codes=all&unit_country_codes=all&unit_name=chock&sort=score&limit=50&submit=Submit")
+url_dance_6 <- paste0("https://skatingscores.com/q/segment/?show_ranks=on&underline=&season_codes=2022&season_codes=2021&season_codes=2020&season_codes=2019&division_codes=sr&division_codes=jr&event_codes=intl&discipline_codes=dance&segment_type_codes=all&unit_country_codes=all&unit_name=stepanova&sort=score&limit=50&submit=Submit")
+url_dance_7 <- paste0("https://skatingscores.com/q/segment/?show_ranks=on&underline=&season_codes=2022&season_codes=2021&season_codes=2020&season_codes=2019&division_codes=sr&division_codes=jr&event_codes=intl&discipline_codes=dance&segment_type_codes=all&unit_country_codes=all&unit_name=guignard&sort=score&limit=50&submit=Submit")
+url_dance_8 <- paste0("https://skatingscores.com/q/segment/?show_ranks=on&underline=&season_codes=2022&season_codes=2021&season_codes=2020&season_codes=2019&division_codes=sr&division_codes=jr&event_codes=intl&discipline_codes=dance&segment_type_codes=all&unit_country_codes=all&unit_name=lilah+fear&sort=score&limit=50&submit=Submit")
+url_dance_9 <- paste0("https://skatingscores.com/q/segment/?show_ranks=on&underline=&season_codes=2022&season_codes=2021&season_codes=2020&season_codes=2019&division_codes=sr&division_codes=jr&event_codes=intl&discipline_codes=dance&segment_type_codes=all&unit_country_codes=all&unit_name=fournier+beaudry&sort=score&limit=50&submit=Submit")
+url_dance_10 <- paste0("https://skatingscores.com/q/segment/?show_ranks=on&underline=&season_codes=2022&season_codes=2021&season_codes=2020&season_codes=2019&division_codes=sr&division_codes=jr&event_codes=intl&discipline_codes=dance&segment_type_codes=all&unit_country_codes=all&unit_name=smart&sort=score&limit=50&submit=Submit")
+url_dance_11 <- paste0("https://skatingscores.com/q/segment/?show_ranks=on&underline=&season_codes=2022&season_codes=2021&season_codes=2020&season_codes=2019&division_codes=sr&division_codes=jr&event_codes=intl&discipline_codes=dance&segment_type_codes=all&unit_country_codes=all&unit_name=hawayek&sort=score&limit=50&submit=Submit")
+url_dance_12 <- paste0("https://skatingscores.com/q/segment/?show_ranks=on&underline=&season_codes=2022&season_codes=2021&season_codes=2020&season_codes=2019&division_codes=sr&division_codes=jr&event_codes=intl&discipline_codes=dance&segment_type_codes=all&unit_country_codes=all&unit_name=zagorski&sort=score&limit=50&submit=Submit")
+url_dance_13 <- paste0("https://skatingscores.com/q/segment/?show_ranks=on&underline=&season_codes=2022&season_codes=2021&season_codes=2020&season_codes=2019&division_codes=sr&division_codes=jr&event_codes=intl&discipline_codes=dance&segment_type_codes=all&unit_country_codes=all&unit_name=hurtado&sort=score&limit=50&submit=Submit")
+url_dance_14 <- paste0("https://skatingscores.com/q/segment/?show_ranks=on&underline=&season_codes=2022&season_codes=2021&season_codes=2020&season_codes=2019&division_codes=sr&division_codes=jr&event_codes=intl&discipline_codes=dance&segment_type_codes=all&unit_country_codes=all&unit_name=shiyue+wang&sort=score&limit=50&submit=Submit")
+url_dance_15 <- paste0("https://skatingscores.com/q/segment/?show_ranks=on&underline=&season_codes=2022&season_codes=2021&season_codes=2020&season_codes=2019&division_codes=sr&division_codes=jr&event_codes=intl&discipline_codes=dance&segment_type_codes=all&unit_country_codes=all&unit_name=lajoie&sort=score&limit=50&submit=Submit")
+
+# extract only the tables from the HTML 
+tab_dance_1 <- read_html(url_dance_1) %>% html_nodes("table")
+tab_dance_2 <- read_html(url_dance_2) %>% html_nodes("table")
+tab_dance_3 <- read_html(url_dance_3) %>% html_nodes("table")
+tab_dance_4 <- read_html(url_dance_4) %>% html_nodes("table")
+tab_dance_5 <- read_html(url_dance_5) %>% html_nodes("table")
+tab_dance_6 <- read_html(url_dance_6) %>% html_nodes("table")
+tab_dance_7 <- read_html(url_dance_7) %>% html_nodes("table")
+tab_dance_8 <- read_html(url_dance_8) %>% html_nodes("table")
+tab_dance_9 <- read_html(url_dance_9) %>% html_nodes("table")
+tab_dance_10 <- read_html(url_dance_10) %>% html_nodes("table")
+tab_dance_11 <- read_html(url_dance_11) %>% html_nodes("table")
+tab_dance_12 <- read_html(url_dance_12) %>% html_nodes("table")
+tab_dance_13 <- read_html(url_dance_13) %>% html_nodes("table")
+tab_dance_14 <- read_html(url_dance_14) %>% html_nodes("table")
+tab_dance_15 <- read_html(url_dance_15) %>% html_nodes("table")
+
+
+# isolate the table with the relevant data
+dance_1 <- tab_dance_1[[2]] %>% html_table(fill = TRUE)
+dance_2 <- tab_dance_2[[2]] %>% html_table(fill = TRUE)
+dance_3 <- tab_dance_3[[2]] %>% html_table(fill = TRUE)
+dance_4 <- tab_dance_4[[2]] %>% html_table(fill = TRUE)
+dance_5 <- tab_dance_5[[2]] %>% html_table(fill = TRUE)
+dance_6 <- tab_dance_6[[2]] %>% html_table(fill = TRUE)
+dance_7 <- tab_dance_7[[2]] %>% html_table(fill = TRUE)
+dance_8 <- tab_dance_8[[2]] %>% html_table(fill = TRUE)
+dance_9 <- tab_dance_9[[2]] %>% html_table(fill = TRUE)
+dance_10 <- tab_dance_10[[2]] %>% html_table(fill = TRUE)
+dance_11 <- tab_dance_11[[2]] %>% html_table(fill = TRUE)
+dance_12 <- tab_dance_12[[2]] %>% html_table(fill = TRUE)
+dance_13 <- tab_dance_13[[2]] %>% html_table(fill = TRUE)
+dance_14 <- tab_dance_14[[2]] %>% html_table(fill = TRUE)
+dance_15 <- tab_dance_15[[2]] %>% html_table(fill = TRUE)
+
+```
+
 ```{r cleaning, message=FALSE}
 # bind each of the skaters into one big data frame
 all_men <- rbind(men_1, men_2, men_3, men_4, men_5, men_6, men_7, 
@@ -135,6 +245,14 @@ all_men <- rbind(men_1, men_2, men_3, men_4, men_5, men_6, men_7,
 all_women <- rbind(women_1, women_2, women_3, women_4, women_5, women_6, women_7, 
                     women_8, women_9, women_10, women_11, women_12, women_13, 
                    women_14, women_15)
+
+all_pairs <- rbind(pair_1, pair_2, pair_3, pair_4, pair_5, pair_6, pair_7, 
+                    pair_8, pair_9, pair_10, pair_11, pair_12, pair_13, 
+                   pair_14, pair_15)
+
+all_dance <- rbind(dance_1, dance_2, dance_3, dance_4, dance_5, dance_6, dance_7, 
+                   dance_8, dance_9, dance_10, dance_11, dance_12, dance_13, dance_14, 
+                   dance_15)
 
 # change season to a numerical year
 for (row in 1:nrow(all_women)) {
@@ -166,17 +284,146 @@ for (row in 1:nrow(all_men)) {
   }
 }
 
+# pairs 
+for (row in 1:nrow(all_pairs)) {
+  if (all_pairs[["Season"]][[row]] == "21/22") {
+    all_pairs[["Season"]][[row]] = 2022
+  } else if (all_pairs[["Season"]][[row]] == "20/21") {
+    all_pairs[["Season"]][[row]] = 2021
+  } else if (all_pairs[["Season"]][[row]] == "19/20") {
+    all_pairs[["Season"]][[row]] = 2020
+  } else if (all_pairs[["Season"]][[row]] == "18/19"){
+    all_pairs[["Season"]][[row]] = 2019
+  } else {
+    all_pairs[["Season"]][[row]] = all_pairs[["Season"]][[row]] 
+  }
+}
+
+# dance 
+for (row in 1:nrow(all_dance)) {
+  if (all_dance[["Season"]][[row]] == "21/22") {
+    all_dance[["Season"]][[row]] = 2022
+  } else if (all_dance[["Season"]][[row]] == "20/21") {
+    all_dance[["Season"]][[row]] = 2021
+  } else if (all_dance[["Season"]][[row]] == "19/20") {
+    all_dance[["Season"]][[row]] = 2020
+  } else if (all_dance[["Season"]][[row]] == "18/19"){
+    all_dance[["Season"]][[row]] = 2019
+  } else {
+    all_dance[["Season"]][[row]] = all_dance[["Season"]][[row]] 
+  }
+}
+
 all_men$Season <- as.numeric(all_men$Season)
 all_women$Season <- as.numeric(all_women$Season)
+all_pairs$Season <- as.numeric(all_pairs$Season)
+all_dance$Season <- as.numeric(all_dance$Season)
 
 # write the datasets to csvs
 write.csv(all_men, 'presentation/data/all_men.csv')
 write.csv(all_women, 'presentation/data/all_women.csv')
+write.csv(all_pairs, 'presentation/data/all_pairs.csv')
+write.csv(all_dance, 'presentation/data/all_dance.csv')
 ```
 
 ```{r EDA}
 library(ggplot2)
+library(gridExtra)
+library(lemon)
 all_men <- read.csv('presentation/data/all_men.csv')
-ggplot(data = all_men, mapping = aes(x = Season, y = TotalScore, color = Skater)) + geom_point()
+all_women <- read.csv('presentation/data/all_women.csv')
+all_dance <- read.csv('presentation/data/all_dance.csv')
+all_pairs <- read.csv('presentation/data/all_pairs.csv')
+fp_men <- all_men %>% filter(Seg == "FS")
+sp_men <- all_men %>% filter(Seg == "SP")
+fp_women <- all_women %>% filter(Seg == "FS")
+sp_women <- all_women %>% filter(Seg == "SP")
+fp_dance <- all_dance %>% filter(Seg == "FD")
+sp_dance <- all_dance %>% filter(Seg == "RD")
+fp_pairs <- all_pairs %>% filter(Seg == "FS")
+sp_pairs <- all_pairs %>% filter(Seg == "SP")
+# all_men[c(1:334),]
+
+# summary men
+sp_men_plot <- ggplot(data = sp_men, mapping = aes(x = jitter(Season), y = TotalScore, color = Skater)) + geom_point() + geom_smooth(method='lm', formula= y~x, se=F) + labs(x = "Season", y = "Short Program Score", title="Top Men's Short Program Scores")
+fp_men_plot <- ggplot(data = fp_men, mapping = aes(x = jitter(Season), y = TotalScore, color = Skater)) + geom_point() + geom_smooth(method='lm', formula= y~x, se=F) + labs(x = "Season", y = "Free Program Score", title="Top Men's Free Program Scores")
+grid_arrange_shared_legend(sp_men_plot, fp_men_plot, ncol = 2)
+
+# summary women
+sp_women_plot <- ggplot(data = sp_women, mapping = aes(x = jitter(Season), y = TotalScore, color = Skater)) + geom_point() + geom_smooth(method='lm', formula= y~x, se=F) + labs(x = "Season", y = "Short Program Score", title="Top Women's Short Program Scores")
+fp_women_plot <- ggplot(data = fp_women, mapping = aes(x = jitter(Season), y = TotalScore, color = Skater)) + geom_point() + geom_smooth(method='lm', formula= y~x, se=F) + labs(x = "Season", y = "Free Program Score", title="Top Women's Free Program Scores")
+grid_arrange_shared_legend(sp_women_plot, fp_women_plot, ncol = 2)
+
+# summary pairs
+sp_pairs_plot <- ggplot(data = sp_pairs, mapping = aes(x = jitter(Season), y = TotalScore, color = Team)) + geom_point() + geom_smooth(method='lm', formula= y~x, se=F) + labs(x = "Season", y = "Short Program Score", title="Top Pairs Short Program Scores")
+fp_pairs_plot <- ggplot(data = fp_pairs, mapping = aes(x = jitter(Season), y = TotalScore, color = Team)) + geom_point() + geom_smooth(method='lm', formula= y~x, se=F) + labs(x = "Season", y = "Free Program Score", title="Top Pairs Free Program Scores")
+grid_arrange_shared_legend(sp_pairs_plot, fp_pairs_plot, ncol = 2)
+
+# summary dance
+sp_dance_plot <- ggplot(data = sp_dance, mapping = aes(x = jitter(Season), y = TotalScore, color = Team)) + geom_point() + geom_smooth(method='lm', formula= y~x, se=F) + labs(x = "Season", y = "Short Program Score", title="Top Dance Short Program Scores")
+fp_dance_plot <- ggplot(data = fp_dance, mapping = aes(x = jitter(Season), y = TotalScore, color = Team)) + geom_point() + geom_smooth(method='lm', formula= y~x, se=F) + labs(x = "Season", y = "Free Program Score", title="Top Dance Free Program Scores")
+grid_arrange_shared_legend(sp_dance_plot, fp_dance_plot, ncol = 2)
+
+```
+Summary Stats
+```{r}
+library(reshape2)
+library(tidyverse)
+boxplot(sp_men$TotalScore)
+
+men_sp_df = data.frame(sp_men$TotalScore, "men_sp") %>% 
+  rename(score = sp_men.TotalScore, discipline = X.men_sp.)
+men_fp_df = data.frame(fp_men$TotalScore, "men_fp") %>% 
+  rename(score = fp_men.TotalScore, discipline = X.men_fp.)
+women_sp_df = data.frame(sp_women$TotalScore, "women_sp") %>% 
+  rename(score = sp_women.TotalScore, discipline = X.women_sp.)
+women_fp_df = data.frame(fp_women$TotalScore, "women_fp") %>% 
+  rename(score = fp_women.TotalScore, discipline = X.women_fp.)
+pairs_sp_df = data.frame(sp_pairs$TotalScore, "pairs_sp") %>% 
+  rename(score = sp_pairs.TotalScore, discipline = X.pairs_sp.)
+pairs_fp_df = data.frame(fp_pairs$TotalScore, "pairs_fp") %>% 
+  rename(score = fp_pairs.TotalScore, discipline = X.pairs_fp.)
+dance_sp_df = data.frame(sp_dance$TotalScore, "dance_sp") %>% 
+  rename(score = sp_dance.TotalScore, discipline = X.dance_sp.)
+dance_fp_df = data.frame(fp_dance$TotalScore, "dance_fp") %>% 
+  rename(score = fp_dance.TotalScore, discipline = X.dance_fp.)
+
+summary_scores = rbind(men_sp_df, men_fp_df, women_sp_df, women_fp_df, pairs_sp_df, pairs_fp_df, dance_sp_df, dance_fp_df)
+# one column is the discipline, one column is total score
+ggplot(summary_scores, aes(x = reorder(discipline, score), y = score)) +           
+  geom_boxplot() + labs(x = "Discipline", y = "Score")
+```
+```{r url_pbs}
+# personal bests for free skate in 21/22 season 
+url_men_pb <- paste0("https://skatingscores.com/q/segment/?show_ranks=on&underline=&season_codes=2022&division_codes=sr&division_codes=jr&event_codes=oly&event_codes=olyt&event_codes=yog&event_codes=wc&event_codes=wjc&event_codes=ec&event_codes=4cc&event_codes=gpf&event_codes=gpjpn&event_codes=gprus&event_codes=gpchn&event_codes=gpfin&event_codes=gpita&event_codes=gpfra&event_codes=gpcan&event_codes=gpusa&event_codes=alptro&event_codes=andopn&event_codes=asncla&event_codes=asntro&event_codes=asngam&event_codes=atmcla&event_codes=autcup&event_codes=avscup&event_codes=balgam&event_codes=bavopn&event_codes=boscup&event_codes=budtro&event_codes=chacup&event_codes=chrcup&event_codes=coupri&event_codes=crncup&event_codes=cryskt&event_codes=cupnic&event_codes=cuptrl&event_codes=dscup&event_codes=dratro&event_codes=dwnund&event_codes=edutro&event_codes=egndan&event_codes=egntro&event_codes=fbmtro&event_codes=fintro&event_codes=gldspn&event_codes=gldber&event_codes=halcup&event_codes=icecha&event_codes=icelab&event_codes=icestr&event_codes=jegcup&event_codes=jnpcha&event_codes=kaucup&event_codes=lomtro&event_codes=lpidi&event_codes=lyntro&event_codes=malcup&event_codes=medopn&event_codes=mercup&event_codes=metnic&event_codes=mezcup&event_codes=mlatro&event_codes=mntblc&event_codes=mororn&event_codes=nebtro&event_codes=nordic&event_codes=nepmem&event_codes=nrwtro&event_codes=nyscup&event_codes=nzwgam&event_codes=petcup&event_codes=phiint&event_codes=pracup&event_codes=reygam&event_codes=rommem&event_codes=sancup&event_codes=saropn&event_codes=sbtmem&event_codes=seagam&event_codes=shatro&event_codes=sktcel&event_codes=skthel&event_codes=sktvic&event_codes=sloopn&event_codes=softro&event_codes=sptlnd&event_codes=talcup&event_codes=taltro&event_codes=taytro&event_codes=tenmem&event_codes=tircup&event_codes=torcup&event_codes=tritro&event_codes=ukropn&event_codes=univer&event_codes=uscla&event_codes=volopn&event_codes=warcup&event_codes=jpnopn&event_codes=wtt&event_codes=jgpf&event_codes=jgpand&event_codes=jgparm&event_codes=jgpaus&event_codes=jgpaut&event_codes=jgpblr&event_codes=jgpbul&event_codes=jgpcan&event_codes=jgpchn&event_codes=jgpcro&event_codes=jgpcze&event_codes=jgpesp&event_codes=jgpest&event_codes=jgpfra&event_codes=jgpfra2&event_codes=jgpgbr&event_codes=jgpger&event_codes=jgphun&event_codes=jgpita&event_codes=jgpjpn&event_codes=jgplat&event_codes=jgpltu&event_codes=jgpmex&event_codes=jgpned&event_codes=jgpnor&event_codes=jgppol&event_codes=jgprou&event_codes=jgprsa&event_codes=jgprus&event_codes=jgpscg&event_codes=jgpslo&event_codes=jgpsvk&event_codes=jgptpe&event_codes=jgptur&event_codes=jgpukr&event_codes=jgpusa&event_codes=jgpuzb&discipline_codes=men&segment_type_codes=fs&unit_country_codes=all&unit_name=%25&distinct_unit=on&sort=score&limit=50&submit=Submit")
+url_women_pb <- paste0("https://skatingscores.com/q/segment/?show_ranks=on&underline=&season_codes=2022&division_codes=sr&division_codes=jr&event_codes=oly&event_codes=olyt&event_codes=yog&event_codes=wc&event_codes=wjc&event_codes=ec&event_codes=4cc&event_codes=gpf&event_codes=gpjpn&event_codes=gprus&event_codes=gpchn&event_codes=gpfin&event_codes=gpita&event_codes=gpfra&event_codes=gpcan&event_codes=gpusa&event_codes=alptro&event_codes=andopn&event_codes=asncla&event_codes=asntro&event_codes=asngam&event_codes=atmcla&event_codes=autcup&event_codes=avscup&event_codes=balgam&event_codes=bavopn&event_codes=boscup&event_codes=budtro&event_codes=chacup&event_codes=chrcup&event_codes=coupri&event_codes=crncup&event_codes=cryskt&event_codes=cupnic&event_codes=cuptrl&event_codes=dscup&event_codes=dratro&event_codes=dwnund&event_codes=edutro&event_codes=egndan&event_codes=egntro&event_codes=fbmtro&event_codes=fintro&event_codes=gldspn&event_codes=gldber&event_codes=halcup&event_codes=icecha&event_codes=icelab&event_codes=icestr&event_codes=jegcup&event_codes=jnpcha&event_codes=kaucup&event_codes=lomtro&event_codes=lpidi&event_codes=lyntro&event_codes=malcup&event_codes=medopn&event_codes=mercup&event_codes=metnic&event_codes=mezcup&event_codes=mlatro&event_codes=mntblc&event_codes=mororn&event_codes=nebtro&event_codes=nordic&event_codes=nepmem&event_codes=nrwtro&event_codes=nyscup&event_codes=nzwgam&event_codes=petcup&event_codes=phiint&event_codes=pracup&event_codes=reygam&event_codes=rommem&event_codes=sancup&event_codes=saropn&event_codes=sbtmem&event_codes=seagam&event_codes=shatro&event_codes=sktcel&event_codes=skthel&event_codes=sktvic&event_codes=sloopn&event_codes=softro&event_codes=sptlnd&event_codes=talcup&event_codes=taltro&event_codes=taytro&event_codes=tenmem&event_codes=tircup&event_codes=torcup&event_codes=tritro&event_codes=ukropn&event_codes=univer&event_codes=uscla&event_codes=volopn&event_codes=warcup&event_codes=jpnopn&event_codes=wtt&event_codes=jgpf&event_codes=jgpand&event_codes=jgparm&event_codes=jgpaus&event_codes=jgpaut&event_codes=jgpblr&event_codes=jgpbul&event_codes=jgpcan&event_codes=jgpchn&event_codes=jgpcro&event_codes=jgpcze&event_codes=jgpesp&event_codes=jgpest&event_codes=jgpfra&event_codes=jgpfra2&event_codes=jgpgbr&event_codes=jgpger&event_codes=jgphun&event_codes=jgpita&event_codes=jgpjpn&event_codes=jgplat&event_codes=jgpltu&event_codes=jgpmex&event_codes=jgpned&event_codes=jgpnor&event_codes=jgppol&event_codes=jgprou&event_codes=jgprsa&event_codes=jgprus&event_codes=jgpscg&event_codes=jgpslo&event_codes=jgpsvk&event_codes=jgptpe&event_codes=jgptur&event_codes=jgpukr&event_codes=jgpusa&event_codes=jgpuzb&discipline_codes=women&segment_type_codes=fs&unit_country_codes=all&unit_name=%25&distinct_unit=on&sort=score&limit=50&submit=Submit")
+url_pairs_pb <- paste0("https://skatingscores.com/q/segment/?show_ranks=on&underline=&season_codes=2022&division_codes=sr&division_codes=jr&event_codes=oly&event_codes=olyt&event_codes=yog&event_codes=wc&event_codes=wjc&event_codes=ec&event_codes=4cc&event_codes=gpf&event_codes=gpjpn&event_codes=gprus&event_codes=gpchn&event_codes=gpfin&event_codes=gpita&event_codes=gpfra&event_codes=gpcan&event_codes=gpusa&event_codes=alptro&event_codes=andopn&event_codes=asncla&event_codes=asntro&event_codes=asngam&event_codes=atmcla&event_codes=autcup&event_codes=avscup&event_codes=balgam&event_codes=bavopn&event_codes=boscup&event_codes=budtro&event_codes=chacup&event_codes=chrcup&event_codes=coupri&event_codes=crncup&event_codes=cryskt&event_codes=cupnic&event_codes=cuptrl&event_codes=dscup&event_codes=dratro&event_codes=dwnund&event_codes=edutro&event_codes=egndan&event_codes=egntro&event_codes=fbmtro&event_codes=fintro&event_codes=gldspn&event_codes=gldber&event_codes=halcup&event_codes=icecha&event_codes=icelab&event_codes=icestr&event_codes=jegcup&event_codes=jnpcha&event_codes=kaucup&event_codes=lomtro&event_codes=lpidi&event_codes=lyntro&event_codes=malcup&event_codes=medopn&event_codes=mercup&event_codes=metnic&event_codes=mezcup&event_codes=mlatro&event_codes=mntblc&event_codes=mororn&event_codes=nebtro&event_codes=nordic&event_codes=nepmem&event_codes=nrwtro&event_codes=nyscup&event_codes=nzwgam&event_codes=petcup&event_codes=phiint&event_codes=pracup&event_codes=reygam&event_codes=rommem&event_codes=sancup&event_codes=saropn&event_codes=sbtmem&event_codes=seagam&event_codes=shatro&event_codes=sktcel&event_codes=skthel&event_codes=sktvic&event_codes=sloopn&event_codes=softro&event_codes=sptlnd&event_codes=talcup&event_codes=taltro&event_codes=taytro&event_codes=tenmem&event_codes=tircup&event_codes=torcup&event_codes=tritro&event_codes=ukropn&event_codes=univer&event_codes=uscla&event_codes=volopn&event_codes=warcup&event_codes=jpnopn&event_codes=wtt&event_codes=jgpf&event_codes=jgpand&event_codes=jgparm&event_codes=jgpaus&event_codes=jgpaut&event_codes=jgpblr&event_codes=jgpbul&event_codes=jgpcan&event_codes=jgpchn&event_codes=jgpcro&event_codes=jgpcze&event_codes=jgpesp&event_codes=jgpest&event_codes=jgpfra&event_codes=jgpfra2&event_codes=jgpgbr&event_codes=jgpger&event_codes=jgphun&event_codes=jgpita&event_codes=jgpjpn&event_codes=jgplat&event_codes=jgpltu&event_codes=jgpmex&event_codes=jgpned&event_codes=jgpnor&event_codes=jgppol&event_codes=jgprou&event_codes=jgprsa&event_codes=jgprus&event_codes=jgpscg&event_codes=jgpslo&event_codes=jgpsvk&event_codes=jgptpe&event_codes=jgptur&event_codes=jgpukr&event_codes=jgpusa&event_codes=jgpuzb&discipline_codes=pairs&segment_type_codes=fs&unit_country_codes=all&unit_name=%25&distinct_unit=on&sort=score&limit=50&submit=Submit")
+url_dance_pb <- paste0("https://skatingscores.com/q/segment/?show_ranks=on&underline=&season_codes=2022&division_codes=sr&division_codes=jr&event_codes=oly&event_codes=olyt&event_codes=yog&event_codes=wc&event_codes=wjc&event_codes=ec&event_codes=4cc&event_codes=gpf&event_codes=gpjpn&event_codes=gprus&event_codes=gpchn&event_codes=gpfin&event_codes=gpita&event_codes=gpfra&event_codes=gpcan&event_codes=gpusa&event_codes=alptro&event_codes=andopn&event_codes=asncla&event_codes=asntro&event_codes=asngam&event_codes=atmcla&event_codes=autcup&event_codes=avscup&event_codes=balgam&event_codes=bavopn&event_codes=boscup&event_codes=budtro&event_codes=chacup&event_codes=chrcup&event_codes=coupri&event_codes=crncup&event_codes=cryskt&event_codes=cupnic&event_codes=cuptrl&event_codes=dscup&event_codes=dratro&event_codes=dwnund&event_codes=edutro&event_codes=egndan&event_codes=egntro&event_codes=fbmtro&event_codes=fintro&event_codes=gldspn&event_codes=gldber&event_codes=halcup&event_codes=icecha&event_codes=icelab&event_codes=icestr&event_codes=jegcup&event_codes=jnpcha&event_codes=kaucup&event_codes=lomtro&event_codes=lpidi&event_codes=lyntro&event_codes=malcup&event_codes=medopn&event_codes=mercup&event_codes=metnic&event_codes=mezcup&event_codes=mlatro&event_codes=mntblc&event_codes=mororn&event_codes=nebtro&event_codes=nordic&event_codes=nepmem&event_codes=nrwtro&event_codes=nyscup&event_codes=nzwgam&event_codes=petcup&event_codes=phiint&event_codes=pracup&event_codes=reygam&event_codes=rommem&event_codes=sancup&event_codes=saropn&event_codes=sbtmem&event_codes=seagam&event_codes=shatro&event_codes=sktcel&event_codes=skthel&event_codes=sktvic&event_codes=sloopn&event_codes=softro&event_codes=sptlnd&event_codes=talcup&event_codes=taltro&event_codes=taytro&event_codes=tenmem&event_codes=tircup&event_codes=torcup&event_codes=tritro&event_codes=ukropn&event_codes=univer&event_codes=uscla&event_codes=volopn&event_codes=warcup&event_codes=jpnopn&event_codes=wtt&event_codes=jgpf&event_codes=jgpand&event_codes=jgparm&event_codes=jgpaus&event_codes=jgpaut&event_codes=jgpblr&event_codes=jgpbul&event_codes=jgpcan&event_codes=jgpchn&event_codes=jgpcro&event_codes=jgpcze&event_codes=jgpesp&event_codes=jgpest&event_codes=jgpfra&event_codes=jgpfra2&event_codes=jgpgbr&event_codes=jgpger&event_codes=jgphun&event_codes=jgpita&event_codes=jgpjpn&event_codes=jgplat&event_codes=jgpltu&event_codes=jgpmex&event_codes=jgpned&event_codes=jgpnor&event_codes=jgppol&event_codes=jgprou&event_codes=jgprsa&event_codes=jgprus&event_codes=jgpscg&event_codes=jgpslo&event_codes=jgpsvk&event_codes=jgptpe&event_codes=jgptur&event_codes=jgpukr&event_codes=jgpusa&event_codes=jgpuzb&discipline_codes=dance&segment_type_codes=fd&unit_country_codes=all&unit_name=%25&distinct_unit=on&sort=score&limit=50&submit=Submit")
+```
+
+```{r pb}
+# extract only the tables from the HTML 
+tab_men_pb <- read_html(url_men_pb) %>% html_nodes("table")
+men_pb <- tab_men_pb[[2]] %>% html_table(fill = TRUE)
+
+tab_women_pb <- read_html(url_women_pb) %>% html_nodes("table")
+women_pb <- tab_women_pb[[2]] %>% html_table(fill = TRUE)
+
+tab_pairs_pb <- read_html(url_pairs_pb) %>% html_nodes("table")
+pairs_pb <- tab_pairs_pb[[2]] %>% html_table(fill = TRUE)
+
+tab_dance_pb <- read_html(url_dance_pb) %>% html_nodes("table")
+dance_pb <- tab_dance_pb[[2]] %>% html_table(fill = TRUE)
+
+
+```
+
+```{r modeling}
+
+```
+
+
+```{r correlation}
+
 ```
 
