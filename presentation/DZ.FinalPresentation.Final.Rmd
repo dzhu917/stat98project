@@ -95,15 +95,36 @@ knitr::include_graphics("images/scores_boxplot.png")
 ---
 # Modeling Plan
 ### Prediction
-- OLS: outcome is the final score, predictors: technical segment score, program component score
-- Mixed effects model: incorporate home-town advantage, starting order
+- OLS: outcome is the final score, predictors: mean GOE mark, mean PCS mark
+Each segment is normally distributed based on the predictors, previous personal best ($h_{short}$), mean GOE ($\text{goe}_i$), and mean PCS ($\text{pcs}_i$). *Note PB is not included yet
 
+$$\text{short}_i \sim N(\beta_{0, short} + \beta_{1, short} * h_{short} + \beta_2 * \text{goe}_i + \beta_3*\text{pcs}_i, \sigma^2_{short})$$
+
+$$\text{long}_i \sim N(\beta_{0, long} + \beta_{1, long} * h_{long} + \beta_2 * \text{goe}_i + \beta_3*\text{pcs}_i, \sigma^2_{long})$$
+- Mixed effects model: incorporate home-town advantage, starting order
+---
 ### Judging Bias
 - Use Spearman's Rank Correlation to assess how judges' rankings line up with the final skater rankings
 - Bayesian generalized linear model (stan_glm) to check for a correlation between competing in home country and final score: $y = f(\beta_0+\beta_1*\text{home})$
 
 ---
 # Results
+
+```{r, echo=F, include=F}
+library(tidyverse)
+all_men <- read.csv('data/all_men.csv')
+fp_men <- all_men %>% filter(Seg == "FS")
+sp_men <- all_men %>% filter(Seg == "SP")
+```
+
+```{r, messages=F, warnings=FALSE,}
+summary(lm(TES ~ MeanGOE.Mark + MeanPCS.Mark, data = fp_men))
+```
+
+---
+```{r}
+summary(lm(TES ~ MeanGOE.Mark + MeanPCS.Mark, data = sp_men))
+```
 
 ---
 # Spearman rank correlations
@@ -134,14 +155,18 @@ Confidence interval contains 0
 ]
 
 ---
-# Discussion
-
----
-
-# Next Steps and Questions
+# Discussion & Conclusion
 .pull-left[
+**Prediction**
+- Grade of Execution and Program Component Scores are strong indicators of final score, although GOE holds a stronger weight (beta coefficient = 4.63 for GOE vs. 2.38 for PCS)
+- These beta coefficients are highly significant
 ]
 .pull-right[
-- Hypothesis: There is more variance between scores in singles skating than in ice dance and pairs. Run t-tests for significance on TSS and mean GOE.
-- Plan to scrape the actual dates for the events so the data can follow a more continuous time scale
+**Bias**
+- There is a strong indication of advantage for skaters competing in their hometown, but this may be conflated with the fact that countries with top skaters are more likely to host competitions
+- Judges have generally high agreeability, but we should look further into whether low correlations are significant results
 ]
+
+<!-- --- -->
+
+<!-- # Next Steps and Questions -->

@@ -79,9 +79,14 @@ Due to the Russia-Ukraine conflict in recent months, the International Skating U
 ---
 # Modeling Plan
 ### Prediction
-- OLS: outcome is the final score, predictors: technical segment score, program component score
-- Mixed effects model: incorporate home-town advantage, starting order
+- OLS: outcome is the final score, predictors: mean GOE mark, mean PCS mark
+Each segment is normally distributed based on the predictors, previous personal best ($h_{short}$), mean GOE ($\text{goe}_i$), and mean PCS ($\text{pcs}_i$). *Note PB is not included yet
 
+`$$\text{short}_i \sim N(\beta_{0, short} + \beta_{1, short} * h_{short} + \beta_2 * \text{goe}_i + \beta_3*\text{pcs}_i, \sigma^2_{short})$$`
+
+`$$\text{long}_i \sim N(\beta_{0, long} + \beta_{1, long} * h_{long} + \beta_2 * \text{goe}_i + \beta_3*\text{pcs}_i, \sigma^2_{long})$$`
+- Mixed effects model: incorporate home-town advantage, starting order
+---
 ### Judging Bias
 - Use Spearman's Rank Correlation to assess how judges' rankings line up with the final skater rankings
 - Bayesian generalized linear model (stan_glm) to check for a correlation between competing in home country and final score: `\(y = f(\beta_0+\beta_1*\text{home})\)`
@@ -89,12 +94,71 @@ Due to the Russia-Ukraine conflict in recent months, the International Skating U
 ---
 # Results
 
+
+
+
+```r
+summary(lm(TES ~ MeanGOE.Mark + MeanPCS.Mark, data = fp_men))
+```
+
+```
+## 
+## Call:
+## lm(formula = TES ~ MeanGOE.Mark + MeanPCS.Mark, data = fp_men)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -26.1184  -6.5738   0.4681   6.6633  27.1024 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   32.3652     7.2009   4.495 9.70e-06 ***
+## MeanGOE.Mark   7.0387     0.8011   8.786  &lt; 2e-16 ***
+## MeanPCS.Mark   4.9022     0.9744   5.031 8.07e-07 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 9.641 on 326 degrees of freedom
+## Multiple R-squared:  0.5472,	Adjusted R-squared:  0.5444 
+## F-statistic:   197 on 2 and 326 DF,  p-value: &lt; 2.2e-16
+```
+
+---
+
+```r
+summary(lm(TES ~ MeanGOE.Mark + MeanPCS.Mark, data = sp_men))
+```
+
+```
+## 
+## Call:
+## lm(formula = TES ~ MeanGOE.Mark + MeanPCS.Mark, data = sp_men)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -16.6297  -3.0178   0.2811   4.3390   9.5421 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   16.9989     3.6978   4.597 6.22e-06 ***
+## MeanGOE.Mark   4.6288     0.3697  12.519  &lt; 2e-16 ***
+## MeanPCS.Mark   2.3832     0.5077   4.694 4.00e-06 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 5.383 on 314 degrees of freedom
+## Multiple R-squared:  0.641,	Adjusted R-squared:  0.6388 
+## F-statistic: 280.4 on 2 and 314 DF,  p-value: &lt; 2.2e-16
+```
+
 ---
 # Spearman rank correlations
 
 .pull-left[
 ![](images/judge_placements_men.png)
-The high correlations indicate that judges generally agree with each other, but we note that the Italian judge has the lowest correlation. In the final paper I will test for whether this statistic is significantly lower than the correlations of the other judges.
+The high correlations indicate that judges generally agree with each other, but we note that the Italian judge has the lowest correlation. 
+
+In the final paper I will test for whether this statistic is significantly lower than the correlations of the other judges.
 
 ]
 .pull-right[
@@ -116,17 +180,21 @@ Confidence interval contains 0
 ]
 
 ---
-# Discussion
-
----
-
-# Next Steps and Questions
+# Discussion &amp; Conclusion
 .pull-left[
+**Prediction**
+- Grade of Execution and Program Component Scores are strong indicators of final score, although GOE holds a stronger weight (beta coefficient = 4.63 for GOE vs. 2.38 for PCS)
+- These beta coefficients are highly significant
 ]
 .pull-right[
-- Hypothesis: There is more variance between scores in singles skating than in ice dance and pairs. Run t-tests for significance on TSS and mean GOE.
-- Plan to scrape the actual dates for the events so the data can follow a more continuous time scale
+**Bias**
+- There is a strong indication of advantage for skaters competing in their hometown, but this may be conflated with the fact that countries with top skaters are more likely to host competitions
+- Judges have generally high agreeability, but we should look further into whether low correlations are significant results
 ]
+
+&lt;!-- --- --&gt;
+
+&lt;!-- # Next Steps and Questions --&gt;
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
