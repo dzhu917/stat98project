@@ -100,12 +100,24 @@ knitr::include_graphics("images/scores_boxplot.png")
 
 ### Judging Bias
 - Use Spearman's Rank Correlation to assess how judges' rankings line up with the final skater rankings
-- Bayesian generalized linear model (stan_glm): $y = f(\beta_0+\beta_1*\text{home})$
+- Bayesian generalized linear model (stan_glm) to check for a correlation between competing in home country and final score: $y = f(\beta_0+\beta_1*\text{home})$
 
 ---
 # Results
 
+---
+# Spearman rank correlations
 
+.pull-left[
+![](images/judge_placements_men.png)
+The high correlations indicate that judges generally agree with each other, but we note that the Italian judge has the lowest correlation. 
+
+In the final paper I will test for whether this statistic is significantly lower than the correlations of the other judges.
+
+]
+.pull-right[
+![](images/corrs.png)
+]
 ---
 # Home Country Advantage
 .pull-left[

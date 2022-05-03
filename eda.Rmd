@@ -424,6 +424,64 @@ dance_pb <- tab_dance_pb[[2]] %>% html_table(fill = TRUE)
 
 
 ```{r correlation}
+library(stringr)
+url_judges_men <- paste0("https://skatingscores.com/2122/wc/sr/men/long/tss/")
+tab_url_judges_men <- read_html(url_judges_men) %>% html_nodes("table")
+judges_men <- tab_url_judges_men[[1]] %>% html_table(fill = TRUE)
+#write.csv(judges_men, "judges_men.csv")
+
+judges_men_1 <- read.csv("presentation/data/judges_men_clean.csv") %>% rename(nation = X.1)
+judges_men_1$CAN = as.character(judges_men_1$CAN)
+judges_men_1$EST = as.character(judges_men_1$EST)
+judges_men_1$SWE = as.character(judges_men_1$SWE)
+judges_men_1$ITA = as.character(judges_men_1$ITA)
+judges_men_1$TUR = as.character(judges_men_1$TUR)
+judges_men_1$AUT = as.character(judges_men_1$AUT)
+judges_men_1$FRA = as.character(judges_men_1$FRA)
+judges_men_1$AZE = as.character(judges_men_1$AZE)
+judges_men_1$KAZ = as.character(judges_men_1$KAZ)
+
+# splice rank, only run once
+for (i in (1:nrow(judges_men_1))){
+  for (j in (5:length(judges_men_1))){
+    if (str_sub(judges_men_1[i,j], -2, -2) == "."){
+      judges_men_1[i,j] = str_sub(judges_men_1[i,j], 1, -6)
+    } else {
+      judges_men_1[i,j] = str_sub(judges_men_1[i,j], 1, -7)
+    }
+    
+    #print(i, j)
+  }
+}
+judges_men_1$CAN = as.numeric(judges_men_1$CAN)
+judges_men_1$EST = as.numeric(judges_men_1$EST)
+judges_men_1$SWE = as.numeric(judges_men_1$SWE)
+judges_men_1$ITA = as.numeric(judges_men_1$ITA)
+judges_men_1$TUR = as.numeric(judges_men_1$TUR)
+judges_men_1$AUT = as.numeric(judges_men_1$AUT)
+judges_men_1$FRA = as.numeric(judges_men_1$FRA)
+judges_men_1$AZE = as.numeric(judges_men_1$AZE)
+judges_men_1$KAZ = as.numeric(judges_men_1$KAZ)
+
+countries_men <- c("CAN", "EST", "SWE", "ITA", "TUR", "AUT", "FRA", "AZE", "KAZ")
+corr_men <- c(cor.test(judges_men_1$final_placement, judges_men_1$CAN, method = "spearman")$estimate,
+cor.test(judges_men_1$final_placement, judges_men_1$EST, method = "spearman")$estimate,
+cor.test(judges_men_1$final_placement, judges_men_1$SWE, method = "spearman")$estimate,
+cor.test(judges_men_1$final_placement, judges_men_1$ITA, method = "spearman")$estimate,
+cor.test(judges_men_1$final_placement, judges_men_1$TUR, method = "spearman")$estimate,
+cor.test(judges_men_1$final_placement, judges_men_1$AUT, method = "spearman")$estimate,
+cor.test(judges_men_1$final_placement, judges_men_1$FRA, method = "spearman")$estimate,
+cor.test(judges_men_1$final_placement, judges_men_1$AZE, method = "spearman")$estimate,
+cor.test(judges_men_1$final_placement, judges_men_1$KAZ, method = "spearman")$estimate)
+
+data.frame(countries_men, corr_men)
 
 ```
 
+
+```{r render=lemon_print}
+library(lemon)
+library(knitr)
+knit_print.data.frame <- lemon_print
+kable(judges_men_1)
+```
