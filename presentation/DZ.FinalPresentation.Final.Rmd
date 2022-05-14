@@ -30,20 +30,40 @@ style_mono_light(base_color = "#23395b")
 
 My final project seeks to analyze figure skating competition data from the past Olympic cycle in order to predict the 2022 World Championship results and assess potential judging bias. 
 
-### Research Question
+--
+
+## Research Question
 - What are the most significant predictors that determine a skater's total score and rank, and how can we use this to predict the 2022 World Championships? 
+
+--
+
 - Do skaters receive a home-town advantage in scores when competing in their home country? 
 
 ---
 # Data Collection Process
 
-I scraped data using the `rvest` package from skatingscores.com, which uploads scoring protocols from all international and major domestic competitions under the IJS (International Judging System).
+I scraped data from the past Olympic cycle using the `rvest` package from skatingscores.com, which uploads scoring protocols from all international and major domestic competitions under the IJS (International Judging System).
+
+--
+
 - I chose skaters who earned the top 15 free skate scores at the past two senior world championships (2022 and 2021). 
 - Selected skaters who competed at the world championships because oftentimes large countries like Russia will have several top scoring skaters, but each country can only send a maximum of three skaters to the world championships. 
 - Due to the volatile nature of the sport and short-lived seasons of skaters, I chose skaters who have been performing well in the past two years. 
 
+--
+
 Due to the Russia-Ukraine conflict in recent months, the International Skating Union banned Russian athletes from participating in any international figure skating competitions on or after March 1, 2022, including the 2022 World Championships.
 
+---
+![](images/sample_protocol.png)
+---
+# Data Cleaning
+
+- all_men: 646 obs of 13 var
+- all_women: 618 obs of 13 var
+- all_pairs: 448 obs of 13 var
+- all_dance: 495 obs of 13 var
+- added random jitter to the seasons when conducting EDA
 
 ---
 ## Initial EDA
@@ -155,7 +175,7 @@ Confidence interval contains 0
 ]
 
 ---
-# Discussion & Conclusion
+# Discussion & Limitations
 .pull-left[
 **Prediction**
 - Grade of Execution and Program Component Scores are strong indicators of final score, although GOE holds a stronger weight (beta coefficient = 4.63 for GOE vs. 2.38 for PCS)

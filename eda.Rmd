@@ -419,6 +419,8 @@ dance_pb <- tab_dance_pb[[2]] %>% html_table(fill = TRUE)
 ```
 
 ```{r modeling}
+# need to add personal best 
+summary(lm(TES ~ MeanGOE.Mark + MeanPCS.Mark, data = fp_men))
 
 ```
 
